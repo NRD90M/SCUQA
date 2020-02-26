@@ -1,0 +1,26 @@
+{% extends 'usercenter.html' %}
+{% load staticfiles %}
+{% block title %}我关注的人{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/my_follow.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/usercenter.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="user-right">
+        <div class="right-list">
+            <div class="title1"><a href="/my_followers/">我的粉丝</a></div>
+            <div class="title2"><a href="/my_followings/">我关注的人</a></div>
+            <div class="title2"><a href="/my_follow_questions/">我关注的问题</a></div>
+        </div>
+        <h4>我关注的人</h4>
+        <div class="follow_list">
+            {% for  follow in my_following %}
+                <div class="follow_box">
+                    <div class="follow_img"><img src="/media/{{ follow.follower.headshot_img }}" style="border-radius: 50%"></div>
+                    <div><a class="follow_user" href="/user-{{ follow.follower_id }}/user_question/">{{ follow.follower_id }}</a></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

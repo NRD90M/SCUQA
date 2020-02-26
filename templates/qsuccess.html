@@ -1,0 +1,25 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}提问成功{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/qsuccess.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="question_success">
+        <h1>问题发布成功！</h1>
+        <div class="question_back">
+            <ul>
+                <li><a href="/question/">继续提问</a></li>
+                <li><a href="/index/">返回首页</a></li>
+                <li><a href="/my_question/">我的提问</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="question_rel">
+            <h3>相关问题</h3>
+            {% for question in question_list%}
+                <li class="question_list"><a href="/detail-{{ question.id }}/">{{question.qtitle}}</a></li>
+            {% endfor %}
+    </div>
+{% endblock content %}

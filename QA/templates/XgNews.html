@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <style>
+        .xgnews{
+            min-height: 600px;
+        }
+        a:hover {
+            color: #fff;
+        }
+        .pagination{
+            margin-top: 100px;
+            margin-left: 150px;
+        }
+        .pagination li {
+            width: 30px;
+            list-style: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .pagination a {
+            text-decoration: none;
+            color: black;
+        }
+        .pactive {
+            border-radius: 20px;
+            background-color: #59B200;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="xgnews">
+     {% for new in xg_news %}
+       <p style="margin-left: 150px"><a style="text-decoration: none;color: #666" href="/xg-news-{{ new.id }}/detail/">【{{ new.Xg_post_time|date:"Y.m.d" }}】{{ new.Xg_news}}</a></p>
+    {% endfor %}
+    <div class="pagination">
+            <ul>
+                {% if xg_news.has_previous %}
+                    <li class="previous"><a href="/xg_news/?page={{ xg_news.previous_page_number }}"><</a></li>
+                {% else %}
+                    <li class="previous disabled"><a href="#"><</a></li>
+                {% endif %}
+                {% for num in paginator.page_range %}
+                    {% if num == currentPage %}
+                        <li class="pactive"><a href="/xg_news/?page={{ num }}">{{ num }}</a></li>
+                    {% else %}
+                        <li><a href="/xg_news/?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if xg_news.has_next %}
+                    <li class="next"><a href="/xg_news/?page={{ xg_news.next_page_number }}">></a></li>
+                {% else %}
+                    <li class="next disabled"><a href="#">></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+.main-body{
+    width: 1263px;
+    height: 800px;
+    margin: 0 auto;
+}
+.left-part{
+	width: 150px;
+	height: 100%;
+	margin-top:5px;
+}
+
+.left-part ul{
+    width: 150px;
+	height: 100%;
+	margin-top: 5px;
+    margin-left: 20px;
+	float:left;
+}
+
+.left-part li{
+    width: 150px;
+	height: 10%;
+	float:left;
+}
+
+
+.left-part a{
+	width:100px;
+	height:35px;
+}

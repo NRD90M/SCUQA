@@ -1,0 +1,145 @@
+.user-left{
+    width:330px;
+    height:800px;
+    background-color: whitesmoke;
+    margin-left: 10px;
+}
+.left-top1{
+   width:330px;
+    height:280px;
+}
+
+.top1{
+    width:330px;
+    height:150px;
+    position:relative;
+    margin-top: 10px;
+}
+
+.top1-1{
+    width:100px;
+    height:100px;
+    margin-left:10px;
+    bottom:0;
+    float:left;
+    border-radius: 50%;
+}
+
+
+.top1-2{
+    height:50px;
+    float:right;
+    margin-right: 100px;
+}
+
+
+.top1-2 a{
+     font-size:100%;
+     height:50px;
+    text-decoration: none;
+    color: #666;
+}
+
+.top1-2 a:hover{
+    color: #59B200;
+}
+
+.top1-3{
+    float:left;
+    height:100px;
+    width:200px;
+}
+
+.top1-3 a{
+    text-decoration: none;
+    color: #666;
+}
+
+.top1-3 a:hover{
+    color:#59B200;
+}
+.top2{
+    width:330px;
+    height:100px;
+    background-image: url("/static/img/top2.jpg");
+    margin-top: 30px;
+}
+
+.table{
+    height:100px;
+    margin-left: 0px;
+}
+ .tr{
+     height:30px;
+     width:300px;
+ }
+
+.td1{
+    width:150px;
+    height:30px;
+    font-size: 200%;
+    text-align: center;
+    text-decoration: none;
+    color:#fff ;
+}
+
+.td2{
+    width:150px;
+    height:30px;
+    text-align: center;
+    text-decoration: none;
+    color:#fff ;
+}
+
+.left-top2{
+    width:330px;
+    height:400px;
+    background-color: rgba(236, 236, 236, 0.22);
+}
+
+
+.left-top2 li{
+     height: 45px;
+    list-style: none;
+    color: #fff;
+}
+
+.left-top2 a{
+    height:45px;
+    text-decoration: none;
+    font-size: 100%;
+    margin-bottom: 5px;
+    color: #666;
+    display:block;
+    line-height:45px ;
+    text-align: center;
+}
+
+.left-top2 li:hover{
+    background: #59B200;
+}
+
+.left-top2 li:active {
+    background: #59B200;
+    color: #fff;
+}
+
+.left-top2 a:hover{
+    color: white;
+}
+
+.left-top2 a:active{
+    color:white ;
+    background-color: #59B200;
+
+}
+
+.user-right{
+    width:940px;
+    height:800px;
+    left:400px;
+    position: absolute;
+    top:220px;
+    background-color: whitesmoke;
+}
+

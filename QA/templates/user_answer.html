@@ -1,0 +1,26 @@
+{% extends "user.html" %}
+{% load staticfiles %}
+{% block title %}user{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="user_right">
+        <table class="user_question">
+            <tr><td><h3>TA的回答</h3></td></tr>
+            <tr>
+                <td>问题标题</td>
+                <td>时间</td>
+                <td>回答</td>
+            </tr>
+        {% for answer in answers %}
+             <tr>
+                 <td><div class="user_title"><a href="/detail-{{ answer.qid.id }}/">{{ answer.qid.qtitle }}</a></div></td>
+                 <td><div class="user_time">{{ answer.qid.q_time|date:"Y-m-d" }}</div></td>
+                <td><div class="user_answer">{{ answer.qid.answer_set.count }}</div></td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock content%}

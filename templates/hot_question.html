@@ -1,0 +1,50 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}问答推荐{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/type.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="types">
+        <div class="type_header">
+            <a href="/index/">首页</a>
+            <span>></span>
+            <a href="/hot_question/">问答推荐</a>
+        </div>
+        <table class="type_category">
+            <tr><td><h1>问答推荐</h1></td></tr>
+            <tr>
+               <td><a {%if request.path == '/recommend_hot_question/'%} class="current"{% endif %}href="/recommend_hot_question/">热门问题</a></td>
+                <td><a {%if request.path == '/recommend_hot_answer/'%} class="current"{% endif %}href="/recommend_hot_answer/">热门回答</a> </td>
+                <td><a {%if request.path == '/recommend_hot_answerer/'%} class="current"{% endif %}href="/recommend_hot_answerer/">热门回答者</a> </td>
+            </tr>
+            <tr>
+                <td><a {%if request.path == '/recommend_question/'%} class="current"{% endif %}href="/recommend_question/">你可能感兴趣的问题</a></td>
+                <td><a {%if request.path == '/recommend_user/'%} class="current"{% endif %}href="/recommend_user/">你可能感兴趣的用户</a> </td>
+            </tr>
+        </table>
+        <p></p>
+        <hr style="border: 1px black solid;margin-left: 35px;width: 700px">
+        <div class="type_question">
+            <p></p>
+            {% for question in questions %}
+                <div class="type_question_left">
+                    <div class="question_answers">{{ question.answer_set.count }}<p>回答</p></div>
+                    <div class="question_favorites">{{ question.question_favorite_set.count }}<p>关注</p></div>
+                </div>
+                <div class="type_question_right">
+                    <div class="type_title"><a href="/detail-{{ question.id }}/">{{question.qtitle}}</a></div>
+                    <div class="type_content">{{ question.qcontent }}</div>
+                    <div class="type_button">
+                        <div class="type_name"><a href="/type2-{{ question.stype.tid }}/">{{ question.stype.tname }}</a></div>
+                        <span>{{ question.q_time|date:"Y-m-d H:i" }}</span>
+                    </div>
+                </div>
+                <hr style="border: 1px dashed green">
+            {% empty %}
+                <p>暂无活动</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content%}

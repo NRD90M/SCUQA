@@ -1,0 +1,182 @@
+/*头部*/
+.active{
+    background-color: #59B200;
+}
+.header{
+	width:100%;
+	height:40px;
+	background-color: #333;
+    color: azure;
+    min-width:1263px;
+}
+
+.header_nav{
+    width:100%;
+	height:40px;
+	background-color: #333;
+}
+
+.header_nav_list{
+    list-style:none;
+	width: 70px;
+    height: 10px;
+    float: right;
+    text-align:center ;
+    line-height: 0px;
+}
+
+.header_nav_list a{
+    text-decoration:none;
+	color:azure;
+	font-size:60%;
+
+
+}
+.header_nav_list_welcome{
+    list-style:none;
+	width: 100%;
+    height: 10px;
+    float: right;
+    margin-right: 220px;
+    text-align:right ;
+    line-height: 23px;
+    color:azure;
+    font-size: 60%;
+}
+/*搜索区域*/
+.sou-suo{
+    width: 100%;
+    height: 100px;
+    min-width:1263px;
+}
+.sou-suo-icon{
+    float: left;
+    height: 100px;
+    font-family: Arial;
+    font-size: 60%;
+    margin-left: 250px;
+}
+
+.sou-suo-search{
+    margin-left: 40px;
+    float: left;
+}
+.sou-suo-search input{
+    width: 500px;
+    height: 50px;
+	border: 2px #59B200 solid;
+    border-radius: 8px;
+    margin-top: 30px;
+    font-size: 22px;
+}
+.sou-suo-question{
+    float: left;
+    margin-left: 20px;
+}
+.sou-suo-search button{
+    width: 80px;
+    height: 50px;
+    border: #59B200 2px solid;
+    border-radius: 8px;
+    margin-top: 30px;
+    font-size: 22px;
+    cursor: pointer;
+}
+.sou-suo-question button{
+    width: 120px;
+    height: 50px;
+    border: #59B200 2px solid;
+    border-radius: 8px;
+    margin-top: 33px;
+    font-size: 22px;
+    cursor: pointer;
+}
+.sou-suo-search button:hover,.sou-suo-question button:hover{
+    background-color: #C6C6C6;
+}
+ .sou-suo-question a{
+     font-size: 22px;
+     text-decoration:none;
+     color:#000000;
+ }
+
+
+/*导航区域*/
+.dao-hang{
+    width: 100%;
+    min-width:1263px;
+    height: 60px;
+    background-color: #333;
+    color: azure;
+}
+.dao-hang2{
+    width: 1263px;
+    height: 60px;
+}
+.logo{
+    width: 200px;
+    height: 50px;
+    float: left;
+    margin-top: 10px;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.dao-hang-lie-biao{
+    list-style:none;
+    width: 170px;
+    height: 60px;
+    float: left;
+    text-align: center;
+    line-height:60px;
+}
+.dao-hang-lie-biao a{
+    text-decoration:none;
+    display: block;
+    width: 170px;
+    height: 60px;
+    color: azure;
+    font-size:150%;
+}
+.dao-hang-lie-biao a:hover{
+    background-color: #59B200;
+}
+
+/*导航区域结束*/
+
+
+.main-body{
+    width:100%;
+    min-height: 100%;
+}
+
+.left-part{
+    width: 30%;
+    height:100%;
+    float:left;
+    margin-top: 10px;
+}
+
+
+.right-part{
+    margin-top: 10px;
+    width: 65%;
+    height:100%;
+}
+/*尾部*/
+.wei-bu{
+    width: 100%;
+    height: 70px;
+    background-color: #222222;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.wei-bu .ban-quan{
+    height: 70px;
+    background-color: #000000;
+    margin: 0 auto;
+    line-height: 80px;
+    text-align: center;
+    color: #fffdfd;
+}

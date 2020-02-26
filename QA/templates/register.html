@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}注册{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="main-body">
+    <img src="/static/img/backgroud.png/">
+        <div class="logo_box">
+            <h3>欢迎注册！</h3>
+            <form action="/register/" method="post">
+                <div class="input_row">
+                    用&nbsp;&nbsp;户&nbsp;&nbsp;名：   <input name="username" class="input_outer" type="text" placeholder="请输入用户名">
+                </div>
+                <div class="input_row">
+                    密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：<input name="password" class="input_outer" type="password" placeholder="请输入密码">
+                </div>
+                <div class="input_row">
+                    确认密码：<input name="password1" class="input_outer" type="text" placeholder="请再次输入密码">
+                </div>
+                <div class="input_row">
+					邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：<input name="email" class="input_outer" type="text"  placeholder="请输入邮箱">
+                </div>
+
+                <div class="input_row">
+                    <label>性&nbsp;&nbsp;&nbsp;别：</label>
+                    <input name="sex" type="radio" value="男" checked>男
+                    <input name="sex" type="radio" value="女">女
+                </div>
+                <div class="reg_foot">
+                    <button type="reset" style="float:left">重置</button>
+                    <button type="submit" style="float:right">提交</button>
+                </div>
+               {% csrf_token %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

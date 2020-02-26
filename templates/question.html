@@ -1,0 +1,45 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/question.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="question_header">
+        <a href="/index/">首页</a>
+        <span>></span>
+        <a>提问</a>
+    </div>
+    <div class="question">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{que.as_p}}
+            <button type="submit">确认提交</button>
+        </form>
+    </div>
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript">
+    function getStypeOptions(ftype){
+        $.ajax({
+            type: "GET",
+            url: '/stype_list/',
+            data:{
+                 'Ptype':ftype,
+            },
+            cache: false,
+            dataType:'json',
+            success: function(ret){
+                var html = "";
+                for(var i=0;i<ret.length;i++){
+                    var iteam = ret[i];
+                    var id = iteam.id;
+                    var name = iteam.name;
+                    html += "<option value="+iteam.id+">"+iteam.name+"</option>";
+                }
+                $("#id_stype").html(html);
+            }
+        })
+    }
+</script>
+{% endblock content %}

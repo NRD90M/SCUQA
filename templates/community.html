@@ -1,0 +1,22 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}问答社区{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/community.css' %}" >
+{% endblock %}
+{% block left %}
+    <div class="community_left">
+        <div class="community_button">
+            <a href="/community_create/"><button>创建社区</button></a>
+        </div>
+        <div class="community_search">
+            <form action="/community_search/" method="post">
+                {% csrf_token %}
+                <input type="text" name="c_word" placeholder="搜索社区" value="" required>
+                <button type="submit" >搜索</button>
+            </form>
+        </div>
+    </div>
+{% endblock left %}
+{% block content %}{% endblock content%}

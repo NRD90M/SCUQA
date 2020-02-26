@@ -1,0 +1,7 @@
+# question_text.txt
+#问题标题、详情、类型、发布者的索引
+{{ object.qtitle }}
+{{ object.qcontent }}
+{{ object.ftype.pyname }}
+{{ object.stype.tname}}
+{{ object.qauthor.username }}

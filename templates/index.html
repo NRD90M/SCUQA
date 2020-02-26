@@ -1,0 +1,83 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" >
+{% endblock %}
+{% block content %}
+<div class="index_top">
+     <div class="index_rec">
+        <h3 class="index_title">热门问题<a href="/recommend_hot_question/">【全部】</a></h3>
+        <div class="banner clearfix">
+            <div class="slider" id="slider">
+                <ul class="slider-wrapper">
+                    {% for question in recquestions %}
+                        <li class="item" data-title="{{ question.qtitle }}">
+                            <a href="/detail-{{ question.id }}/" class="pic"><img alt="#"></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a href="javascript:;" class="slider-prev"></a>
+                <a href="javascript:;" class="slider-next"></a>
+                <div class="slider-title">
+                    <h2></h2>
+                    <span></span>
+                </div>
+                <div class="slider-btns">
+                    <span class="item"></span>
+                    <span class="item"></span>
+                    <span class="item"></span>
+                    <span class="item"></span>
+                    <span class="item"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="index_news">
+        <h3 class="index_title">最新资讯<a href="/xg_news/">【全部】</a></h3>
+        {% for xgnew in xgnews %}
+            <div class="news_title"><a href="/xg-news-{{ xgnew.id }}/detail/">{{ xgnew.Xg_news }}</a></div>
+        {% endfor %}
+    </div>
+    <p></p>
+    <div class="index_types" id="index_types">
+        <hr style="border: grey 1px solid;">
+        <h3 class="index_title">问题分类<a href="/type_all/">【全部】</a></h3>
+        <div class="index_type_detail">
+            <img src="/static/img/type1.png">
+            <h4><a href="/type1-1/" >专业知识</a></h4>
+            <li><a href="/type2-11">自然科学类</a></li>
+            <li><a href="/type2-12">农业科学类</a></li>
+            <li><a href="/type2-13">医药科学类</a></li>
+            <li><a href="/type2-14">工程技术类</a></li>
+            <li><a href="/type2-14">人文社会类</a></li>
+        </div>
+        <div class="index_type_detail">
+            <img src="/static/img/type2.png">
+            <h4><a href="/type1-2/" >校园生活</a></h4>
+            <li><a href="/type2-21">吃喝玩乐</a></li>
+            <li><a href="/type2-22">校园服务</a></li>
+            <li><a href="/type2-23">校园活动</a></li>
+        </div>
+        <div class="index_type_detail">
+            <img src="/static/img/type3.png">
+            <h4><a href="/type1-3/" >未来发展</a></h4>
+            <li><a href="/type2-31">就业</a></li>
+            <li><a href="/type2-32">保研考研</a></li>
+            <li><a href="/type2-33">出国</a></li>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script>
+        $(function () {
+            $("#slider img")[0].src="/static/img/slider_img1.png";
+            $("#slider img")[1].src="/static/img/slider_img2.png";
+            $("#slider img")[2].src="/static/img/slider_img3.png";
+            $("#slider img")[3].src="/static/img/slider_img4.png";
+            $("#slider img")[4].src="/static/img/slider_img5.png";
+        })
+    </script>
+{% endblock content %}

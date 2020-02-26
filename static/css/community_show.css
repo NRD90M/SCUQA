@@ -1,0 +1,421 @@
+.community_show{
+    margin-top: 50px;
+    width: 100px;
+    margin-left:150px;
+    font-family: Arial;
+    min-height: 600px;
+    float: left;
+}
+.community_show li{
+    list-style: none;
+    font-size: 20px;
+    line-height: 200%;
+    border-right: grey solid 1px;
+}
+
+.community_show a {
+    text-decoration: none;
+    color: black;
+}
+.community_show a:hover{
+    color:#59B200;
+}
+/*以上为block left 部分*/
+
+.community_detail{
+    margin-top: 40px;
+    min-height:600px;
+    width: 900px;
+    margin-left:300px;
+    font-family: Arial;
+}
+.community_content{
+    min-height: 600px;
+    width: 600px;
+}
+.community_name{
+    margin-left:10px;
+    width: 550px;
+    border: 1px solid whitesmoke;
+}
+.community_name img {
+    float: left;
+}
+.community_name h4{
+    margin-left: 120px;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 100%;
+}
+.community_name pre{
+    margin-left: 120px;
+    font-size: 15px;
+}
+.community_introduction{
+    margin-left: 20px;
+    width: 500px;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+.community_notice{
+    margin-left: 10px;
+    width: 550px;
+    min-height: 400px;
+}
+.community_notice h4{
+    line-height: 50%;
+    float: left;
+    font-size: 20px;
+}
+.community_notice button{
+    margin-top: 15px;
+    margin-left: 100px;
+    width: 80px;
+    height: 30px;
+    border-color: #59B200;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.notice_detail{
+    margin-top: 20px;
+    width: 550px;
+}
+
+.community_notice li{
+    margin-left: 20px;
+    width: 550px;
+    font-size: 15px;
+}
+.community_notice span{
+    width: 550px;
+    font-size: 12px;
+    word-break: break-all;
+    word-wrap:break-word;
+}
+
+.community_member{
+    width: 300px;
+    position: absolute;
+    top:250px;
+    left: 1000px;
+}
+.community_member h4{
+    line-height: 50%;
+    font-size: 20px;
+}
+.community_member li{
+    background-color: #59B200;
+    list-style: none;
+    margin-left: 10px;
+    margin-top: 5px;
+    height: 40px;
+    width: 210px;
+}
+.community_member img{
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin-top: 2px;
+    margin-left: 5px;
+    border-radius: 50%;
+}
+.community_member a {
+    line-height: 250%;
+    margin-left: 5px;
+    text-decoration: none;
+    color: black;
+}
+.community_member a:hover{
+    color:white;
+}
+.community_member span{
+    font-size: 12px;
+    background-color: #FFCC00;
+}
+/*以上为 community_detail 部分*/
+
+.community_file{
+    margin-top:40px;
+    min-height: 600px;
+    width: 900px;
+    margin-left:300px;
+    font-family: Arial;
+}
+.file_show{
+    min-height: 600px;
+    width: 600px;
+}
+.file_category{
+    width: 550px;
+    margin-left:5%;
+    margin-right:5%;
+    text-overflow: ellipsis;
+}
+.file_category hr{
+    height: 1px;
+    border-top: 1px dashed;
+    border-bottom: 1px dashed;
+}
+.file_one{
+    width: 550px;
+    height: 60px;
+}
+.file_one a{
+    text-decoration:none;
+    color: black;
+}
+.file_one a:hover{
+    color: #59B200;
+}
+
+
+.file_upload{
+    height: 200px;
+    width: 300px;
+    position: absolute;
+    top:250px;
+    left: 1000px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden;
+}
+.file_upload:hover{
+    overflow:visible;
+}
+.file_upload button{
+    margin-top: 5px;
+    margin-left: 150px;
+    width: 60px;
+    height: 30px;
+    border-color: #59B200;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/*以上为 community_file部分*/
+.community_chat{
+    margin-top:40px;
+    min-height:600px;
+    width: 900px;
+    margin-left:300px;
+    font-family: Arial;
+}
+.chat_box{
+    border: 1px black solid;
+    width: 700px;
+    height: 300px;
+}
+.chat_message_list{
+    width: 700px;
+    height: 300px;
+    overflow:auto;
+}
+.msg-item1{
+    margin-left: 5px;
+    width: 350px;
+    text-align: left;
+}
+.msg-item2{
+    width: 350px;
+    margin-left: 300px;
+    text-align:right;
+}
+.msg-text1{
+    word-break:break-all;
+    word-wrap:break-word;
+}
+.msg-text2{
+    word-break:break-all;
+    word-wrap:break-word;
+}
+.msg-text2 p{
+    text-align: left;
+    display: inline-block;
+}
+.msg_img1 {
+    height: 100px;
+    max-width: 350px;
+}
+.msg_img2{
+    height: 100px;
+    max-width: 350px;
+}
+.send_box{
+    position: absolute;
+    top:594px;
+    left:308px;
+    width: 700px;
+    height: 150px;
+    border: 1px black solid;
+}
+.send_box form{
+    width: 700px;
+    height: 80px;
+
+}
+.content{
+    margin-top: 2px;
+    border: 1px sienna solid;
+    position: absolute;
+    left: 10px;
+    overflow-y:auto;
+    width: 600px;
+    height: 70px;
+}
+.preview{
+    width:100px;
+    height:100px;
+    border: red;
+}
+.send_box button{
+    position: absolute;
+    left:550px;
+    top:110px;
+    width: 60px;
+    height: 30px;
+    border-color: #59B200;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.send_item{
+    width: 400px;
+    height: 30px;
+    border: 1px sienna solid;
+}
+.img_send {
+    margin-top: 3px;
+    margin-left: 10px;
+    float: left;
+    height: 25px;
+    width: 30px;
+    background: url("/static/img/img_send.jpg");
+}
+.file_send{
+    margin-top: 3px;
+    margin-left: 5px;
+    float: left;
+    height: 25px;
+    width: 31px;
+    background-image: url("/static/img/file_send.jpg");
+}
+.file_send{
+    margin-top: 3px;
+    margin-left: 5px;
+    float: left;
+    height: 25px;
+    width: 31px;
+    background-image: url("/static/img/file_send.jpg");
+}
+.voice_send{
+    margin-top: 3px;
+    margin-left: 5px;
+    float: left;
+    height: 25px;
+    width: 25px;
+    background-image: url("/static/img/voice.png");
+}
+.voice_record{
+    position: absolute;
+    left:1100px;
+    top:350px;
+    height: 100px;
+    width: 300px;
+    border: 1px solid red;
+}
+.audio-container{
+    position: absolute;
+    left:1100px;
+    top:500px;
+    width: 300px;
+    height: 100px;
+    border: 1px solid blue;
+}
+.content_file{
+    border: 1px solid black;
+    width: 100px;
+}
+.content_file h6{
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+     word-break:break-all;
+    word-wrap:break-word;
+}
+.msg-file1{
+    margin-left: 10px;
+    width: 300px;
+    height: 100px;
+    border: 1px solid black;
+}
+.msg-file2{
+    margin-left: 40px;
+    width: 300px;
+    height: 100px;
+    border: 1px solid black;
+}
+
+.msg-file1-img,.msg-file2-img{
+    float: left;
+    margin-left:10px;
+    margin-top: 5px;
+    width: 100px;
+    height: 90px;
+    background-image: url("/static/img/file.png");
+}
+.msg-file1-name{
+    width: 150px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    border: 1px solid black;
+    word-break:break-all;
+    word-wrap:break-word;
+}
+.msg-file2-name{
+    width: 150px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    border: 1px solid black;
+    word-break:break-all;
+    word-wrap:break-word;
+}
+.msg-file1-name p,.msg-file2-name p{
+    font-size: 15px;
+    text-align: left;
+}
+.msg-save1{
+    margin-left: 10px;
+    width: 300px;
+    border: 1px solid black;
+}
+.msg-save2{
+    margin-left: 40px;
+    width: 300px;
+    border: 1px solid black;
+}
+.msg-save1 a,.msg-save2 a{
+    color: grey;
+}
+.msg-voice1 {
+    width: 50px;
+    height: 50px;
+}
+.msg-voice2 {
+    width: 50px;
+    height: 50px;
+    margin-left: 300px;
+}
+.play_or_stop {
+    width: 50px;
+    height: 50px;
+    background-image: url("/static/img/stop.png");
+}
+.bofang {
+     width: 50px;
+     height: 50px;
+    background-image: url("/static/img/play.png");
+}

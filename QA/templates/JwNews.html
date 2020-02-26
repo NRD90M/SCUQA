@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <style>
+        a:hover{
+           color: #fff;
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+{% endblock %}
+{% block content %}
+     {% for new in jw_news %}
+       <p style="margin-left: 150px"><a style="text-decoration: none;color: #666" href="/jw-news-{{ new.id }}/detail/">{{ new.jw_post_time }}{{ new.jw_news}}</a></p>
+    {% endfor %}
+{% endblock %}
+</html>

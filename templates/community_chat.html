@@ -1,0 +1,456 @@
+{% extends "community_show.html" %}
+{% load staticfiles %}
+{% block title %}问答社区{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/community_show.css' %}" >
+{% endblock %}
+{% block content %}
+    <style>
+            .ui-btn { display: inline-block; padding: 5px 20px; font-size: 14px; line-height: 1.428571429; box-sizing:content-box; text-align: center; border: 1px solid #e8e8e8; border-radius: 3px; color: #555; background-color: #fff; border-color: #e8e8e8; white-space: nowrap; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+            .ui-btn:hover{ color: #333; text-decoration: none; background-color: #f8f8f8; border:1px solid #ddd; }
+            .ui-btn:focus, .ui-btn:active { color: #333; outline: 0; }
+            .ui-btn:disabled, .ui-btn:disabled:hover, .ui-btn:active, .ui-btn[disabled], .ui-btn[disabled]:hover, .ui-state-disabled .ui-btn { cursor: not-allowed; background-color: #eee; border-color: #eee; color: #aaa; }
+            .ui-btn-primary { color: #fff;  background-color: #39b54a;  border-color: #39b54a; }
+            .ui-btn-primary:hover, .ui-btn-primary { color: #fff; background-color: #16a329; border-color: #16a329; }
+            .ui-btn-primary:focus, .ui-btn-primary:active { color: #fff; }
+            .ui-btn-primary:disabled:focus{ color: #aaa; }
+    </style>
+    <div class="community_chat">
+        <h3>社区聊天</h3>
+        <div class="chat_box" id="chat_list">
+            <div class="chat_message_list" id="message_list">
+            </div>
+        </div>
+        <div class="send_box">
+            <div class="send_item">
+                <label class="img_send">
+                    <input id="img_select" class="cc_img" type="file" name="cc_img" style="display: none" accept="image/*" onchange="img_change()">
+                </label>
+                <label class="file_send">
+                    <input id="file_select" class="cc_file" type="file" name="cc_file" style="display:none;" onchange="file_change()">
+                </label>
+                <label class="voice_send" onclick="show()">
+                </label>
+            </div>
+            <div class="content" contenteditable="true" id="content" name="cc_message" onclick="alert_msg()">
+            </div>
+            <button type="button" onclick="chat_upload()">发送</button>
+        </div>
+        <div id="voice_record" style="display: none;" class="voice_record">
+            <button id="start" class="ui-btn ui-btn-primary" disabled>开始</button>
+            <button id="stop" class="ui-btn ui-btn-primary" disabled >停止</button>
+        </div>
+        <div id="audio-container" class="audio-container" style="display: none">
+            <button id="send" class="ui-btn ui-btn-primary" >发送</button>
+            <button id="cancel" class="ui-btn ui-btn-primary">取消</button>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/recorder.js' %}"></script>
+    <script>
+        function show() {
+            if (document.getElementById('voice_record').style.display == 'none') {
+                document.getElementById('voice_record').style.display = 'block';
+            }
+            var start = document.querySelector('#start');
+            var stop = document.querySelector('#stop');
+            var container = document.querySelector('#audio-container');
+            var recorder = new Recorder({
+                sampleRate: 44100, //采样频率，默认为44100Hz(标准MP3采样率)
+                bitRate: 128, //比特率，默认为128kbps(标准MP3质量)
+                success: function () { //成功回调函数
+                    start.disabled = false;
+                },
+                error: function (msg) { //失败回调函数
+                    alert(msg);
+                },
+                fix: function (msg) { //不支持H5录音回调函数
+                    alert(msg);
+                }
+            });
+            start.addEventListener('click', function () {
+                this.disabled = true;
+                stop.disabled = false;
+                var audio = document.querySelectorAll('audio');
+                for (var i = 0; i < audio.length; i++) {
+                    if (!audio[i].paused) {
+                        audio[i].pause();
+                    }
+                }
+                recorder.start();
+            });
+            stop.addEventListener('click', function () {
+                this.disabled = true;
+                start.disabled = false;
+                recorder.stop();
+                document.getElementById('audio-container').style.display = 'block';
+                document.getElementById('voice_record').style.display = 'none';
+                recorder.getBlob(function (blob) {
+                    $("#audio-container audio").remove();
+                    var audio = document.createElement('audio');
+                    audio.src = URL.createObjectURL(blob);
+                    audio.controls = true;
+                    container.appendChild(audio);
+                    var i=0;
+                    $("#cancel").click(function () {
+                        i=2;
+                        $("#audio-container audio").remove();
+                        document.getElementById('audio-container').style.display = 'none';
+                        document.getElementById('voice_record').style.display = 'block';
+                        stop.disabled = true;
+                    });
+                    $("#send").click(function () {
+                        i++;
+                        if(i<=1) {
+                            var community_id ={{ community.id }};
+                            var formData = new FormData($("#comForm")[0]);
+                            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+                            formData.append('cc_voice', blob);
+                            formData.append('community_id', community_id);
+                            $.ajax({
+                                url: "/chat_voice/",
+                                type: 'POST',
+                                data: formData,
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    console.log(data);
+                                    if (data['status'] == 'SUCCESS') {
+                                        $("#audio-container audio").remove();
+                                        document.getElementById('audio-container').style.display = 'none';
+                                        document.getElementById('voice_record').style.display = 'block';
+                                        stop.disabled = true;
+                                    }
+                                    else {
+                                        alert(data['message'])
+                                    }
+                                },
+                                error: function () {
+                                    alert("请求失败")
+                                }
+                            })
+                        }
+                    })
+                })
+            });
+        };
+        $(function(){
+            updateMsg();
+         });
+        function img_change() {
+            if($("#content_file").length){
+                alert("文件仅可单独发送");
+            }
+            else {
+                var img = $("#content img").attr("src");
+                if (img) {
+                    var obj = $("#img_select")[0].files[0];
+                    var wuc = window.URL.createObjectURL(obj);
+                    $("#content img").attr("src", wuc)
+                }
+                else {
+                    var preview = document.createElement("img");
+                    var mydiv = document.getElementById('content');
+                    preview.height = "100";
+                    var obj = $("#img_select")[0].files[0];
+                    var wuc = window.URL.createObjectURL(obj);
+                    preview.src = wuc;
+                    mydiv.appendChild(preview)
+                }
+            }
+        }
+        function file_change() {
+            var file = $("#content_file").length;
+            var name = $('#file_select')[0].files[0].name;
+            if (file) {
+                $("#content_file h6").remove();
+                var preview = document.createElement("h6");
+                var mydiv = document.getElementById('content_file');
+                preview.innerText = name;
+                mydiv.appendChild(preview);
+                document.getElementById('content').contentEditable = false;
+            }
+            else {
+                if($("#content img").attr("src")){
+                    alert("文件仅可单独")
+                }
+                else {
+                    var preview = document.createElement("div");
+                    var mydiv = document.getElementById('content');
+                    preview.className = "content_file";
+                    preview.id = "content_file";
+                    mydiv.appendChild(preview);
+                    var preview = document.createElement("img");
+                    var mydiv = document.getElementById('content_file');
+                    preview.src = "/static/img/file.png";
+                    mydiv.appendChild(preview);
+                    var preview = document.createElement("h6");
+                    var mydiv = document.getElementById('content_file');
+                    preview.innerText = name;
+                    mydiv.appendChild(preview);
+                    document.getElementById('content').contentEditable = false;
+                }
+            }
+        }
+        function alert_msg() {
+            if($("#content_file").length){
+                alert("文件仅可单独发送");
+            }
+        }
+        function chat_upload() {
+                var data = new FormData();
+                var content=document.getElementById("content").innerText;
+                data.append('csrfmiddlewaretoken','{{ csrf_token }}');
+                if($("#content img").attr("src")) {
+                    data.append('cc_img', $('#img_select')[0].files[0]);
+                }
+                if($("#content_file").length){
+                     var file_name=$('#file_select')[0].files[0].name;
+                     var file_type = file_name.substring(file_name.indexOf("."));
+                    data.append('cc_file', $('#file_select')[0].files[0]);
+                    data.append('file_name',file_name);
+                    data.append('file_type',file_type);
+                }
+                else {
+                    data.append('cc_message',content);
+                }
+                $.ajax({
+                    url: "{% url 'community_chat' community.id %}",
+                    type:'POST',
+                    data:data,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success:function(data){
+                        console.log(data);
+                        if (data['status'] == 'SUCCESS'){
+                            $("#content").text('');
+                            var divObj = document.getElementById("message_list");
+                            var height = divObj.scrollHeight;
+                            $("#message_list").animate({scrollTop:height},500);
+                        }
+                        else {
+                            alert(data['message'])
+                        }
+                    },
+                    error:function(){
+                        alert("发送失败")
+                    }
+                 });
+            }
+        function updateMsg() {
+            var last_chat_id = $("#message_list h3").last().text();
+            if(last_chat_id){}
+            else{
+                 last_chat_id="0";
+             }
+             $.ajax({
+                 url: "/chat_message/",
+                 type: "GET",
+                 data:{
+                    'id':{{ community.id }},
+                     'last_chat_id': last_chat_id,
+                 },
+                 cache: false,
+                 dataType:'json',
+                 success:function(ret){
+                     for(var i=0;i<ret.length;i++){
+                         var iteam = ret[i];
+                         var cc_id = iteam.id;
+                         var cc_author = iteam.cc_author;
+                         var cc_message = iteam.cc_message;
+                         var cc_img = iteam.cc_img;
+                         var cc_voice = iteam.cc_voice;
+                         var cc_file = iteam.cc_file;
+                         var cc_file_name = iteam.cc_file_name;
+                         var cc_file_type = iteam.cc_file_type;
+                         var now_user = {{ request.session.username }};
+                         if( now_user != cc_author){
+                             if(cc_file){
+                                 if(cc_file_type==".mp4"){
+                                     var new_msg = "<div class='msg-item1'>" +
+                                         "<span>" + cc_author + "</span>" +
+                                         "&nbsp;&nbsp;" +
+                                         "<span>" + new Date().toLocaleString() + "</span>" +
+                                         "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                         "<video controls  width='300' height='150'>"+
+                                         " <source src='/media/"+cc_file+"'  type='video/mp4'></video>"+
+                                         "</div>";
+                                 }
+                                 else if(cc_file_type==".mp3"){
+                                      var new_msg = "<div class='msg-item1'>" +
+                                         "<span>" + cc_author + "</span>" +
+                                         "&nbsp;&nbsp;" +
+                                         "<span>" + new Date().toLocaleString() + "</span>" +
+                                         "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                         "<audio controls>"+
+                                         " <source src='/media/"+cc_file+"'  type='audio/mpeg'></audio>"+
+                                         "</div>";
+                                 }
+                                 else {
+                                     var url="/file_download-"+ cc_id+"/";
+                                     var new_msg = "<div class='msg-item1'>" +
+                                         "<span>" + cc_author + "</span>" +
+                                         "&nbsp;&nbsp;" +
+                                         "<span>" + new Date().toLocaleString() + "</span>" +
+                                         "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                         "<div class='msg-file1'>" +
+                                         "<div class='msg-file1-img'></div>"+
+                                         "<div class='msg-file1-name'><p>" + cc_file_name + "</div></div>" +
+                                         "<div class='msg-save1'><a href='"+ url +"'>下载</a></div>" +
+                                         "</div>";
+                                 }
+                             }
+                             else if(cc_message&&!cc_img) {
+                                 var new_msg = "<div class='msg-item1'>" +
+                                     "<span>" + cc_author + "</span>" +
+                                     "&nbsp;&nbsp;" +
+                                     "<span>" + new Date().toLocaleString() + "</span>" +
+                                     "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                     "<div class='msg-text1'><p>" + cc_message + "</p></div>" +
+                                     "</div>";
+                             }
+                             else if (cc_img&&!cc_message) {
+                                  var new_msg = "<div class='msg-item1'>" +
+                                     "<span>" + cc_author + "</span>" +
+                                     "&nbsp;&nbsp;" +
+                                     "<span>" + new Date().toLocaleString() + "</span>" +
+                                     "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                     "<div class='msg_img1'><img class='msg_img1' src='/media/" + cc_img + "'></div>" +
+                                     "</div>";
+                             }
+                             else if(cc_voice){
+                                   var new_msg = "<div class='msg-item1'>" +
+                                     "<span>" + cc_author + "</span>" +
+                                     "&nbsp;&nbsp;" +
+                                     "<span>" + new Date().toLocaleString() + "</span>" +
+                                     "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                    "<div class='msg-voice1' onclick='voice_play(this)'><div class='play_or_stop'></div>"+
+                                       "<audio class='media' preload='auto' hidden='true'>"+
+                                       "<source src='/media/"+cc_voice+"'  type='audio/mpeg'></audio></div>"+
+                                     "</div>";
+                             }
+                             else {
+                                 var new_msg = "<div class='msg-item1'>" +
+                                     "<span>" + cc_author + "</span>" +
+                                     "&nbsp;&nbsp;" +
+                                     "<span>" + new Date().toLocaleString() + "</span>" +
+                                     "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                     "<div class='msg-text1'><p>" + cc_message + "</p></div>" +
+                                    "<div class='msg_img1'><img class='msg_img1' src='/media/" + cc_img + "'></div>" +
+                                     "</div>";
+                             }
+                         }
+                         else {
+                             if(cc_file){
+                                 if(cc_file_type==".mp4"){
+                                     var new_msg = "<div class='msg-item2'>" +
+                                         "<span>" + cc_author + "</span>" +
+                                         "&nbsp;&nbsp;" +
+                                         "<span>" + new Date().toLocaleString() + "</span>" +
+                                         "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                         "<video controls width='300' height='150'>"+
+                                         " <source src='/media/"+cc_file+"'  type='video/mp4'></video>"+
+                                         "</div>";
+                                 }
+                                 else if(cc_file_type==".mp3"){
+                                     var new_msg = "<div class='msg-item2'>" +
+                                         "<span>" + cc_author + "</span>" +
+                                         "&nbsp;&nbsp;" +
+                                         "<span>" + new Date().toLocaleString() + "</span>" +
+                                         "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                         "<audio controls>"+
+                                         " <source src='/media/"+cc_file+"'  type='audio/mpeg'></audio>"+
+                                         "</div>";
+                                 }
+                                 else {
+                                     var url="/file_download-"+ cc_id+"/";
+                                     var new_msg = "<div class='msg-item2'>" +
+                                         "<span>" + cc_author + "</span>" +
+                                         "&nbsp;&nbsp;" +
+                                         "<span>" + new Date().toLocaleString() + "</span>" +
+                                         "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                         "<div class='msg-file2'>" +
+                                         "<div class='msg-file2-img'></div>"+
+                                         "<div class='msg-file1-name'><p>" + cc_file_name + "</div></div>" +
+                                         "<div class='msg-save2'><a href='"+ url +"'>下载</a></div>" +
+                                         "</div>";
+                                 }
+                             }
+                             else if(cc_message&&!cc_img) {
+                                 var new_msg = "<div class='msg-item2'>" +
+                                     "<span>" + cc_author + "</span>" +
+                                     "&nbsp;&nbsp;" +
+                                     "<span>" + new Date().toLocaleString() + "</span>" +
+                                     "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                     "<div class='msg-text2'><p>" + cc_message + "</p></div>" +
+                                     "</div>";
+                             }
+                             else if (cc_img&&!cc_message) {
+                                  var new_msg = "<div class='msg-item2'>" +
+                                     "<span>" + cc_author + "</span>" +
+                                     "&nbsp;&nbsp;" +
+                                     "<span>" + new Date().toLocaleString() + "</span>" +
+                                     "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                     "<div class='msg_img2'><img class='msg_img2' src='/media/" + cc_img + "'></div>" +
+                                     "</div>";
+                             }
+                             else if(cc_voice){
+                                   var new_msg = "<div class='msg-item2'>" +
+                                        "<span>" + cc_author + "</span>" +
+                                        "&nbsp;&nbsp;" +
+                                        "<span>" + new Date().toLocaleString() + "</span>" +
+                                        "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                       "<div class='msg-voice2' onclick='voice_play(this)'><div class='play_or_stop'></div>"+
+                                        "<audio class='media' preload='auto' hidden='true'>"+
+                                        " <source src='/media/"+cc_voice+"'  type='audio/mpeg'></audio></div>"+
+                                        "</div>";
+                             }
+                             else{
+                                 var new_msg = "<div class='msg-item2'>" +
+                                     "<span>" + cc_author + "</span>" +
+                                     "&nbsp;&nbsp;" +
+                                     "<span>" + new Date().toLocaleString() + "</span>" +
+                                     "<h3 style='display:none'>" + cc_id + "</h3>" +
+                                    "<div class='msg-text2'><p>" + cc_message + "</p></div>" +
+                                     "<div class='msg_img2'><img class='msg_img2' src='/media/" + cc_img + "'></div>" +
+                                     "</div>";
+                             }
+                         }
+                         $(".chat_message_list").append(new_msg);
+                     }
+                     if(ret.length>0){
+                              change_scrooll()
+                         }
+                 },
+             });
+			 setTimeout("updateMsg()", 1000);
+        }
+        function change_scrooll() {
+                var divObj = document.getElementById("message_list");
+                var height = divObj.scrollHeight;
+                $("#message_list").animate({scrollTop:height},500);
+        }
+        function voice_play(obj){
+                var audio =$(obj.getElementsByClassName("media"))[0];
+                if (audio.paused) {
+					var change=$(obj.getElementsByClassName("play_or_stop"));
+                    audio.play();
+                    change.removeClass("play_or_stop");
+                    change.addClass("bofang");
+                    audio.addEventListener('ended', function () {
+                        change.removeClass("bofang");
+                        change.addClass("play_or_stop");
+                    }, false);
+                }
+                else {
+					var change=$(obj.getElementsByClassName("bofang"));
+                    audio.pause();
+                    change.removeClass("bofang");
+                    change.addClass("play_or_stop");
+                }
+            };
+    </script>
+{% endblock content%}

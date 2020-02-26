@@ -1,0 +1,168 @@
+.user_left{
+    margin-left: 5px;
+    margin-top: 30px;
+    width: 350px;
+    min-height: 600px;
+    font-family: Arial;
+    background-color: whitesmoke;
+}
+.user_basis{
+    width: 350px;
+    height: 300px;
+}
+.user_basis1{
+    width:350px;
+    height:110px;
+}
+.user_basis1 img{
+    float: left;
+}
+.user_name{
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 40px;
+    float: left;
+}
+.user_name a{
+    float: left;
+    font-size: 20px;
+}
+
+.user_nicname{
+    margin-top: 20px;
+    font-size: 15px;
+}
+.user_name img{
+    float: left;
+}
+.user_email{
+    margin-top: 20px;
+    font-size: 15px;
+}
+.user_favorite button{
+    width: 65px;
+    height: 30px;
+    margin-left: 50px;
+    margin-top:40px;
+    font-size: 12px;
+    cursor: pointer;
+    background-color: #59B200;
+}
+.user_details{
+    height: 100px;
+    width: 200px;
+    font-weight: normal;
+    word-break: break-all;
+    word-wrap:break-word;
+}
+
+.user_types{
+    margin-top: 60px;
+}
+.user_types li{
+    border:1px solid grey;
+    height: 30px;
+    list-style: none;
+    text-align:center;
+    background-color: #fff;
+    border-radius: 5%;
+}
+.user_types a{
+    text-decoration:none;
+	color: black ;
+    font-size: 15px;
+}
+
+.user_types li:hover{
+    background-color: #59B200;
+    color: #fff;
+}
+.user_types a:hover{
+    color: #fff;
+}
+/*以上是user部分*/
+
+.user_right{
+    height: 400px;
+    width: 800px;
+    position: absolute;
+    top:245px;
+    left: 400px;
+}
+.user_question{
+    border: 1px solid whitesmoke;
+    width: 700px;
+    margin-left:5%;
+    margin-right:5%;
+    font-size:15px;
+    text-align: left;
+    text-overflow: ellipsis;
+}
+.user_question tr{
+    height: 25px;
+}
+.user_title{
+    width: 400px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden;
+}
+.user_title:hover{
+    text-overflow:inherit;
+    overflow:visible;
+}
+.user_time{
+    width: 100px;
+}
+.user_answer{
+    width: 50px;
+}
+.user_title a{
+    text-decoration:none;
+    height: 40px;
+    color: black;
+}
+.user_title a:hover {
+    color: #59B200;
+}
+.user_list {
+    border: 1px solid whitesmoke;
+    width: 700px;
+    margin-left:5%;
+    margin-right:5%;
+    font-size: 15px;
+}
+.user_list tr{
+    height: 25px;
+}
+.user_list td{
+    width: 80px;
+    text-align: left;
+}
+.user_list a{
+    text-decoration:none;
+    width: 150px;
+    height: 40px;
+    color: black;
+    font-size:15px;
+}
+.user_list a:hover {
+    color: #59B200;
+}
+.user_follower{
+    border: 1px solid whitesmoke;
+    width: 700px;
+    margin-left:5%;
+    margin-right:5%;
+    font-size:15px;
+    text-align: left;
+}
+.user_follower a{
+    margin-left: 20px;
+    text-decoration:none;
+    height: 40px;
+    color: black;
+}
+.user_follower a:hover {
+    color: #59B200;
+}

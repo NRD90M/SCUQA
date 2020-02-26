@@ -1,0 +1,75 @@
+.right_title{
+    background-image:url('/static/img/right_title.jpg');
+    background-size:cover;
+    width: 100%;
+    height: 70px;
+}
+
+.title_con{
+    padding-top: 20px;
+    color:#fff;
+    width:550px;
+    height:50px;
+    margin-left: 350px;
+    font-size: 120%
+}
+
+.user_info{
+    height:50px
+}
+
+.user_info p{
+    margin-left:50px;
+    font-size: 100%
+}
+
+.reinfo_box{
+    margin-left:50px;
+    height:50px
+}
+
+input{
+        border:2px #59B200 solid;
+        border-radius:15px;
+    }
+
+.input1{
+    width:250px;
+    height:25px
+}
+
+.input2{
+    width:600px;
+    height:50px
+}
+
+.upload_btn{
+    margin-top:10px;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    line-height:30px;
+    text-align: center;
+    font-size: 15px;
+    background-color:#59B200
+}
+
+.img-preview{
+    margin-left: 50px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden
+}
+
+.submit_btn{
+    border:1px #59B200 solid;
+    color:#fff;
+    width:80px;
+    height:40px;
+    margin-left:400px;
+    background-color:#59B200;
+    border-radius: 10px
+}

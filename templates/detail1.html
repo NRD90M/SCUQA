@@ -1,0 +1,221 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="question-answer">
+        <div class="question-detail">
+            <h3>{{ question.qtitle }}</h3>
+            <h5>{{ question.qcontent }}</h5>
+            {% if question.q_img %}
+                <img src="{{ question.q_img.url }}">
+            {% endif %}
+             {% if question.q_file %}
+                <div class="q_file">
+                    <a href="{{ question.q_file.url }}">查看附件</a>
+                </div>
+            {% endif %}
+            <div class="question-footnote">
+                {% if request.session.username == question.qauthor_id %}
+                    <a href="/usercenter_index/">{{ question.qauthor_id }}</a>
+                {% else %}
+                    <a href="/user-{{ question.qauthor_id }}/user_question/">{{ question.qauthor_id }}</a>
+                {% endif %}
+                <span>|</span>
+                <span>{{ question.q_time|date:"Y-m-d H:i" }}</span>
+                {% if request.session.username == question.qauthor_id %}
+                    <button onclick="question_delete({{ question.id }})">删除</button>
+                {% else %}
+                    <button onclick="fav_change(this,{{ question.id }})">{% if que_fav %}已关注{% else %}关注{% endif %}</button>
+                {% endif %}
+            </div>
+        </div>
+        <p></p>
+        <div class="question-answer-write">
+            <h3>我来回答</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{an.as_p}}
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        <p></p>
+        <div class="question-answer-show">
+            <h3>全部回答</h3>
+            {% for answer in answers %}
+                <div class="answer-content">
+                    <div class="answer-author">
+                        <img src="/static/img/4.jpg/">
+                        {% if request.session.username == answer.aauthor_id %}
+                            <a href="/usercenter_index/">{{ answer.aauthor_id }}</a>
+                        {% else %}
+                            <a href="/user-{{ answer.aauthor_id }}/user_question/">{{ answer.aauthor_id}}</a>
+                        {% endif %}
+                    </div>
+                    <h5>{{ answer.acontent }}</h5>
+                   <div class="answer-footnote">
+                        {% if request.session.username == answer.aauthor_id %}
+                            <a><button onclick="answer_delete({{ answer.id }})">删除</button></a>
+                            <span>|</span>
+                        {% elif request.session.username == answer.qid.qauthor_id%}
+                            <a><button onclick="answer_delete({{ answer.id }})">删除</button></a>
+                            <span>|</span>
+                        {% endif %}
+                        <span>回答于{{ answer.a_time|date:"Y-m-d H:i" }}</span>
+                        <span>|</span>
+                        <a onclick="showandhidden({{ answer.id }})" >评论({{ answer.answer_comment_set.count }})</a>
+                        <span>|</span>
+                        <p></p>
+                    </div>
+                    <div class="like" onclick="like_change(this,{{ answer.id }})">
+                        <span class="like_state">点赞</span>
+                        <span class="alike">({{ answer.answer_like_set.count }})</span>
+                        <p></p>
+                    </div>
+                    <div id="{{ answer.id }}" style="display: none;" class="answer-comment">
+                        <form  method="post"  action="/answer_comment/" enctype="multipart/form-data" class="comment_box">
+                            <input type="hidden" name="hidden" value="{{ answer.id }}">
+                            <textarea name="ccontent" cols="70" rows="5"></textarea>
+                            {% csrf_token %}
+                            <input type="submit" value="提交">
+                        </form>
+                        <div class="comment-list">
+                            {% for comment in comments %}
+                                {% if comment.answer == answer %}
+                                    {% if request.session.username == comment.cauthor_id %}
+                                        <a href="/usercenter_index/">{{ comment.cauthor_id }}：</a>
+                                    {% else %}
+                                        <a href="/user-{{ comment.cauthor_id }}/user_question/">{{ comment.cauthor_id }}：</a>
+                                    {% endif %}
+                                    <b>{{ comment.ccontent }}</b><br>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script>
+        function showandhidden(id){
+            if(document.getElementById(id).style.display == 'none'){
+                document.getElementById(id).style.display = 'block';
+            }
+            else {
+                document.getElementById(id).style.display='none';
+            }
+        }
+        function  like_change(obj,answer_id){
+            var is_like = obj.getElementsByClassName('lactive').length == 0
+            $.ajax({
+                type:'GET',
+                url:'/like_change/',
+                data:{
+                    'answer_id':answer_id,
+                    'is_like':is_like,
+                },
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS'){
+                        var record = $(obj.getElementsByClassName('like_state'))
+                        if (is_like){
+                            record.addClass('lactive')
+                        }
+                        else {
+                            record.removeClass('lactive')
+                        }
+                        var alike = $(obj.getElementsByClassName('alike'))
+                            alike.text('('+ data['alike'] +')')
+                    }
+                    else {
+                        alert(data['message'])
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+        function  fav_change(obj,question_id){
+            var is_fav = obj.innerHTML == "关注"
+            $.ajax({
+                type:'GET',
+                url:'/fav_change/',
+                data:{
+                    'question_id':question_id,
+                    'is_fav':is_fav
+                },
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS'){
+                        alert(data['message'])
+                        if (is_fav){
+                            obj.innerHTML="已关注";
+                        }
+                        else {
+                            obj.innerHTML="关注"
+                        }
+                    }
+                    else {
+                        alert(data['message'])
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+         function question_delete(question_id) {
+            $.ajax({
+                type: 'GET',
+                url: '/question_delete/',
+                data: {
+                    'question_id': question_id,
+                },
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS') {
+                        alert("删除成功");
+                        window.location.href=document.referrer;
+                    }
+                    else {
+                        alert(data['message'])
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+        function answer_delete(answer_id) {
+            $.ajax({
+                type: 'GET',
+                url: '/answer_delete/',
+                data: {
+                    'answer_id': answer_id,
+                },
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS') {
+                        alert("删除成功");
+                        window.location.reload();
+                    }
+                    else {
+                        alert(data['message'])
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+    </script>
+{% endblock content %}

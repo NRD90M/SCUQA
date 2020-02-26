@@ -1,0 +1,32 @@
+{% extends 'usercenter.html' %}
+{% load staticfiles %}
+{% block title %}我关注的问题{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/my_follow_ques.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/usercenter.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="user-right">
+        <div class="title_list">
+            <div class="title1"><a href="/my_followers/">我的粉丝</a></div>
+            <div class="title2"><a href="/my_followings/">我关注的人</a></div>
+            <div class="title2"><a href="/my_follow_questions/">我关注的问题</a></div>
+        </div>
+        <h4>我关注的问题</h4>
+        <table>
+             <tr class="tr41">
+                 <td class="td42">标题</td>
+                 <td class="td41">作者</td>
+                 <td class="td41">内容</td>
+             </tr>
+             {% for follow in follows %}
+             <tr>
+                 <td>{{ follow.question.qtitle }}</td>
+                 <td>{{ follow.fauthor.username }}</td>
+                 <td class="td42">{{ follow.question.qcontent }}</td>
+             </tr>
+             {% endfor %}
+        </table>
+    </div>
+{% endblock %}

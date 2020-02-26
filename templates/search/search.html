@@ -1,0 +1,52 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/type.css' %}" >
+{% endblock %}
+{% block content %}
+{% if query %}
+    <div class="types">
+        <div class="type_header">
+            <a href="/index/">首页</a>
+            <span>></span>
+            <a>搜索结果</a>
+        </div>
+        {% if page.object_list %}
+        <table class="type_category">
+            <tr><td><h1>搜索结果如下：</h1></td></tr>
+        </table>
+        <p></p>
+        <div class="type_question">
+            <p></p>
+            {% for result in page.object_list %}
+                <div class="type_question_left">
+                    <div class="question_answers">{{ result.object.answer_set.count }}<p>回答</p></div>
+                    <div class="question_favorites">{{ result.object.question_favorite_set.count }}<p>关注</p></div>
+                </div>
+                <div class="type_question_right">
+                    <div class="type_title"><a href="/detail-{{ result.object.id }}/">{{ result.object.qtitle }}</a></div>
+                    <div class="type_content">{{ result.object.qcontent }}</div>
+                    <div class="type_button">
+                        <div class="type_name"><a href="/type2-{{ result.object.stype.tid }}/">{{ result.object.stype.tname }}</a></div>
+                        <span>{{ result.object.q_time|date:"Y-m-d H:i" }}</span>
+                    </div>
+                </div>
+                <hr style="border: 1px dashed green">
+            {% endfor %}
+        </div>
+        {% else %}
+            <h4>暂无搜索结果</h4>
+        {% endif %}
+    </div>
+    </div>
+    {% if page.has_previous or page.has_next %}
+        <div>
+            {% if page.has_previous %}<a href="?q={{ query }}&page={{ page.previous_page_number }}">{% endif %}« 上一页{% if page.has_previous %}</a>{% endif %}
+        |
+            {% if page.has_next %}<a href="?q={{ query }}&page={{ page.next_page_number }}">{% endif %}下一页 »{% if page.has_next %}</a>{% endif %}
+        </div>
+    {% endif %}
+{% endif %}
+{% endblock content %}

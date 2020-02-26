@@ -1,0 +1,129 @@
+.community_left{
+    margin-left: 100px;
+    margin-top: 30px;
+    width: 200px;
+    min-height: 600px;
+    font-family: Arial;
+    float: left;
+}
+.community_button{
+    margin-left: 20px;
+}
+.community_button button{
+    width: 120px;
+    height: 50px;
+    border-color: #59B200;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 22px;
+    cursor: pointer;
+}
+.community_search{
+    margin-top: 20px;
+}
+.community_search input{
+    width: 200px;
+    height: 30px;
+	border-color:#00FF00;
+    border-radius: 8px;
+    font-size: 15px;
+}
+.community_search button{
+    width: 50px;
+    height: 25px;
+    border-color: #59B200;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 140px;
+    margin-top: 3px;
+}
+/*以上是block left部分*/
+
+.community{
+    min-height:600px;
+    width: 700px;
+    margin-left:350px;
+    font-family: Arial;
+}
+.community_header {
+    height: 30px;
+    margin-top: 10px;
+}
+.community_header a{
+    text-decoration:none;
+    height: 30px;
+    color: black;
+    font-size:80%;
+}
+.community_header a:hover{
+    color:#59B200;
+}
+.community_header span {
+    font-size: 80%;
+    height: 40px;
+    color: black;
+}
+
+.community_list{
+    min-height: 600px;
+    width: 700px;
+}
+
+.community_style{
+    margin-top: 20px;
+    height: 120px;
+    width:650px;
+    font-size: 15px;
+    border-bottom: 1px solid black;
+}
+.community_style img{
+    float: left;
+}
+.community_style1{
+    margin-left: 120px;
+    line-height: 2px;
+}
+.community_style1 a{
+    text-decoration:none;
+    height: 40px;
+    color: black;
+}
+.community_style1 a:hover{
+    color: #59B200;
+}
+.community_style1 span{
+    margin-left: 10px;
+    height: 10px;
+    font-size:12px;
+    color: grey;
+}
+.community_style1 button{
+    width: 65px;
+    height: 30px;
+    margin-left: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+.community_style2{
+    margin-left: 120px;
+    font-size: 12px;
+    color: grey;
+}
+
+.pagination {
+    text-align: center;
+}
+.pagination li{
+    width: 30px;
+    list-style: none;
+    display: inline-block;
+}
+.pagination a {
+    text-decoration: none;
+    color: black;
+}
+.pactive{
+    border-radius: 20px;
+    background-color: #59B200;
+}

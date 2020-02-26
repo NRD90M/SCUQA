@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}个人中心{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/usercenter.css' %}" >
+{% endblock %}
+{% block left %}
+    <div class="user-left">
+      <div class="left-top1">
+            <div class="top1">
+                <div class="top1-1">
+                    <a href="/userinfo_reset/"><img src="{{ user.headshot_img.url }}" style="border-radius: 50%"></a>
+                </div>
+                <div class="top1-2">
+                    <a href="/usercenter_index/">昵称：{{ user.nickname }}</a></div>
+                <div class="top1-3">
+                    <p>{% if user.per_signature %}个性签名：{{ user.per_signature }}{% else %}<a href="/userinfo_reset/">你还没有个性签名，点这添加！</a>{% endif %}</p>
+                </div>
+            </div>
+            <div class="top2" >
+                    <table class="table">
+                        <tr class="tr">
+                            <td class="td1"><a style="color: #fff;text-decoration: none" href="/my_followers/">{{ userfollower_num}}</a></td>
+                            <td class="td1"><a style="color: #fff;text-decoration: none"href="/my_followings/">{{ userfollowing_num }}</a></td>
+                        </tr>
+                        <tr class="tr">
+                            <td class="td2">粉&nbsp;&nbsp;丝</td>
+                            <td class="td2">正在关注</td>
+                        </tr>
+                    </table>
+            </div>
+      </div>
+      <div class="left-top2">
+                 <li>{%if request.path == '/usercenter_index/'%} <a class="active" href="/usercenter_index/">我的首页</a>{% else %}<a href="/usercenter_index/">我的首页</a>{% endif %}</li>
+                 <li>{%if request.path == '/userinfo_reset/'%}<a class="active" href="/userinfo_reset/">修改资料</a>{% else %}<a href="/userinfo_reset/">修改资料</a>{% endif %}</li>
+                 <li>{%if request.path == '/password_modify/'%}<a class="active" href="/password_modify/">修改密码</a>{% else %}<a href="/password_modify/">修改密码</a>{% endif %}</li>
+                 <li>{%if request.path == '/user_message/'%} <a class="active" href="/user_message/">我的消息</a>{% else %}<a href="/user_message/">我的消息</a>{% endif %}</li>
+                 <li>{%if request.path == '/my_question/'%} <a class="active" href="/my_question/">我的提问</a>{% else %}<a href="/my_question/">我的提问</a>{% endif %}</li>
+                 <li>{%if request.path == '/my_answer/'%} <a class="active" href="/my_answer/">我的回答</a>{% else %}<a href="/my_answer/">我的回答</a>{% endif %}</li>
+                 <li>{%if request.path == '/user_feedback/'%} <a class="active" href="/user_feedback/">我的反馈</a>{% else %}<a href="/user_feedback/">我的反馈</a>{% endif %}</li>
+                 <li>{%if request.path == '/my_followers/'%} <a class="active" href="/my_followers/">我的关注</a>{% else %}<a href="/my_followers/">我的关注</a>{% endif %}</li>
+
+      </div>
+    </div>
+     <script type="text/javascript" src="{% static 'js/jquery.js'%}"></script>
+    <script type="text/javascript">
+	</script>
+{% endblock left%}
+{% block content %}
+{% endblock content %}

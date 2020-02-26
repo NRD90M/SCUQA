@@ -1,0 +1,75 @@
+{% extends "community.html" %}
+{% load staticfiles %}
+{% load filter %}
+{% block title %}问答社区{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/community.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="community">
+        <div class="community_header">
+            <a href="/index/">首页</a>
+            <span>></span>
+            <a href="/community_list/">问答社区</a>
+            <span>></span>
+            <a>{{ c_word }}</a>
+        </div>
+        {% if community_list %}
+        <table class="community_list">
+            {% for community in community_list %}
+                <div class="community_style">
+                    <img src="/static/img/com.jpg/">
+                    <div class="community_style1">
+                       {% if req.session.username|community_member:community %}
+                            <a href="/community-{{ community.id }}/detail/">{{ community.c_name }}</a>
+                            <button>已加入</button>
+                        {% else %}
+                            <a onclick="alert('您不是该社区的成员')">{{ community.c_name }}</a>
+                            <button onclick="community_apply(this,{{ community.id}})">加入</button>
+                        {% endif %}
+                        <p><span>创建者：
+                            {% if request.session.username == community.c_author_id %}
+                                <a href="/usercenter_index/">{{ community.c_author_id }}</a>
+                            {% else %}
+                                <a href="/user-{{ community.c_author_id }}/user_question/">{{ community.c_author_id }}</a>
+                            {% endif %}
+                        </span>
+                        <span>11个成员</span>
+                    </div>
+                    <div class="community_style2">{{ community.c_introduction }}</div>
+                </div>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>暂无搜索结果</p>
+        {% endif %}
+    </div>
+    <script type="text/javascript" src="{% static 'js/jquery.js'%}"></script>
+    <script>
+        function community_apply(obj,community_id) {
+            var is_apply = obj.innerHTML == "加入"
+            $.ajax({
+                type:'GET',
+                url:'/community_apply/',
+                data:{
+                    'community_id':community_id,
+                    'is_apply':is_apply
+                },
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS'){
+                        alert(data['message'])
+                    }
+                    else {
+                        alert(data['message'])
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+    </script>
+{% endblock content%}

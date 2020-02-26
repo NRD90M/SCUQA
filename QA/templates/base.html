@@ -1,0 +1,72 @@
+{% load staticfiles %}
+{% load filter %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <title>{% block title %}{{ webname }}{% endblock title %}</title>
+    {% block css %}
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >{% endblock %}
+</head>
+<body>
+{% block header_con %}
+   <div class="header">
+       <div class="header_nav">
+                 {% if request.session.is_login  %}
+                     <li class="header_nav_list"><h3><a href="/user_message/">消息({{ request.session.username|message_num}})</a></h3></li>
+                    <li class="header_nav_list"><h3><a href="/usercenter_index/">个人中心</a></h3></li>
+                     <li class="header_nav_list"><h3><a href="/logout/">退出</a></h3></li>
+                     <li class="header_nav_list_welcome">欢迎回来：{{request.session.username }}</li>
+                 {% else %}
+			         <li class="header_nav_list"><h3><a href="/register/">注册</a></h3></li>
+                     <li class="header_nav_list"><h3><a href="/login/">登录</a></h3></li>
+                 {% endif %}
+       </div>
+   </div>
+<!--搜索区域-->
+<div class="sou-suo">
+        <div class="sou-suo-icon">
+            <img src="/static/img/logo.jpg/">
+        </div>
+
+        <div class="sou-suo-search">
+            <form action="/search/" method="get">
+                <input type="text" name="q" placeholder="请输入搜索内容" value="" required>
+                <button type="submit" >搜索</button>
+            </form>
+        </div>
+        <div class="sou-suo-question">
+            <a href="/question/"><button>我要提问</button></a>
+        </div>
+</div>
+
+<!--导航-->
+
+<header class="dao-hang">
+    <div class="dao-hang2">
+        <div class="logo">SCU.QA</div>
+        <li class="dao-hang-lie-biao"><a {%if request.path == '/index/'%} class="active"{% endif %}href="/index/">首页</a></li>
+        <li class="dao-hang-lie-biao"><a {%if request.path|slice:"5" == '/type'%} class="active"{% endif %}href="/type_all/">问答中心</a></li>
+        <li class="dao-hang-lie-biao"><a {%if request.path|slice:"10" == '/recommend'%} class="active"{% endif %}href="/recommend_hot_question/">问答推荐</a></li>
+        <li class="dao-hang-lie-biao"><a {%if request.path|slice:"10" == '/community'%} class="active"{% endif %}href="/community_list/">问答社区</a></li>
+        <li class="dao-hang-lie-biao"><a {%if request.path == '/xg_news/'%} class="active"{% endif %}href="/xg_news/">校园新闻</a></li>
+    </div>
+    </div>
+</header>
+
+{% endblock header_con %}
+
+ {% block left %}{% endblock left %}
+{% block content %}{% endblock content %}
+
+{% block bottom %}
+   <footer class="wei-bu">
+    <div class="ban-quan">
+        <p>Copyright ? 四川大学公共管理学院信息管理与信息系统专业</p>
+    </div>
+   </footer>
+{% endblock bottom %}
+</body>
+</html>

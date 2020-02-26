@@ -1,0 +1,37 @@
+{% extends "community_show.html" %}
+{% load staticfiles %}
+{% block title %}问答社区{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/community_show.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="community_file">
+        <div class="file_show">
+            <h3>社区文件</h3>
+            <p></p>
+            {% if files %}
+            <div class="file_category">
+                {% for file in files %}
+                    <div class="file_one">
+                        <a href="{{ file.cf_file.url }}">{{ file.cf_name }}</a>
+                        <pre>来自<a href="/user-{{ file.cf_author_id }}/user_follower/">{{ file.cf_author_id }}</a>&nbsp;&nbsp;&nbsp;&nbsp;{{ file.cf_time|date:"Y-m-d" }}</pre>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+            {% else %}
+                <p>暂无文件</p>
+            {% endif %}
+        </div>
+        <div class="file_upload">
+            <h4>文件上传</h4>
+            <form method="post" enctype="multipart/form-data" action="/upload_file/">
+                <input type="hidden" name="hidden" value="{{ community.id }}" id="file_hidden">
+                {% csrf_token %}
+                {{fil.as_p}}
+                <button type="submit" id="file_btn">上传</button>
+            </form>
+        </div>
+    </div>
+{% endblock content%}

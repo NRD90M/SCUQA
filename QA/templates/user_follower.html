@@ -1,0 +1,27 @@
+{% extends "user.html" %}
+{% load staticfiles %}
+{% block title %}user{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="user_right">
+        <table class="user_list">
+            <tr><td><h3>TA的关注</h3></td></tr>
+            <tr>
+                <td><a href="/user-{{ user.username }}/user_favorite/">TA关注的问题</a></td>
+                <td><a href="/user-{{ user.username }}/user_favorite_person/">TA关注的人</a></td>
+                <td><a href="/user-{{ user.username }}/user_follower/">TA的粉丝</a></td>
+            </tr>
+        </table>
+        <p></p>
+        <table class="user_follower">
+            {% for follower in followers %}
+                <tr>
+                    <td><a href="/user-{{ follower.user.username }}/user_question/"> {{ follower.user.username }}</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content%}

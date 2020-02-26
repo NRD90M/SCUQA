@@ -1,0 +1,211 @@
+.current{
+    background-color:#59B200;
+    color: white;
+    border-radius: 5px;
+}
+.types{
+    min-height:600px;
+    width: 700px;
+    margin-left:200px;
+}
+
+.type_header{
+    height: 30px;
+    margin-top: 10px;
+}
+.type_header a{
+    text-decoration:none;
+    height: 30px;
+    color: black;
+    font-size:80%;
+}
+.type_header a:hover{
+    color:#59B200;
+}
+.type_header span{
+    font-size:80%;
+    height: 40px;
+    color: black;
+}
+
+.type_category{
+    border: 1px solid whitesmoke;
+    height:60px;
+    width: 700px;
+    margin-left:35px;
+    margin-right:35px;
+}
+.type_category h1{
+    font-size: 30px;
+}
+.type_category td{
+    width: 80px;
+    height: 40px;
+    line-height: 44px;
+}
+.type_category a{
+    text-align: center;
+    display: block;
+    text-decoration:none;
+    height: 40px;
+    max-width: 300px;
+    color: black;
+    font-size:20px;
+}
+.type_category a:hover{
+    background-color: #59B200;
+    border-radius: 5px;
+    color: white;
+}
+
+.type_question{
+    border: 1px solid whitesmoke;
+    width: 700px;
+    margin-left: 35px;
+    margin-right: 35px;
+    font-size:15px;
+}
+.type_question_left{
+    font-size: 15px;
+    font-family: Arial;
+    margin-left: 20px;
+    width: 70px;
+    height: 100px;
+    float: left;
+    border: 1px solid black;
+    text-align: center;
+}
+.type_question_left p{
+    line-height: 1px;
+}
+.question_answers{
+    color: white;
+    background: #59B200;
+    border: 1px solid black;
+}
+.question_favorites{
+    border: 1px solid black;
+}
+.type_img_left{
+    float: left;
+    width: 70px;
+    height: 100px;
+    margin-left: 20px;
+}
+.type_img_left img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.type_question_right{
+    margin-left:110px;
+    width:550px;
+    height: 100px;
+}
+.type_title{
+    font-size: 16px;
+    font-weight: 700;
+    width: 550px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden;
+}
+.type_title:hover{
+    text-overflow:inherit;
+    overflow:visible;
+}
+.type_title a{
+    text-decoration:none;
+    color: black;
+    line-height: 200%;
+}
+.type_title a:hover{
+    color: #59B200;
+}
+.type_content{
+    font-weight:300;
+    font-size: 13px;
+    color: grey;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space: nowrap;
+}
+.type_button{
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.type_name{
+    float: left;
+    width: 100px;
+}
+.type_name a{
+    display: inline-block;
+    padding:5px 10px;
+    background-color: #59B200;
+    color: white;
+    text-decoration: none;
+}
+.type_button span{
+    line-height: 250%;
+    margin-left: 340px;
+}
+.recommend_user_list{
+    border: 1px solid whitesmoke;
+    width: 700px;
+    min-height: 400px;
+    margin-left: 35px;
+    margin-right: 35px;
+    font-size:15px;
+}
+.recommend_user{
+    width: 200px;
+    height: 200px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    background-color:#eeffbc;
+}
+.recommend_user img{
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.recommend_user_name {
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+.recommend_user_name a{
+    color:black;
+    text-decoration: none;
+}
+.recommend_user_name a:hover{
+    color: white;
+}
+.recommend_user h6{
+    text-align: center;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 5%;
+}
+.pagination {
+    text-align: center;
+}
+.pagination li{
+    width: 30px;
+    list-style: none;
+    display: inline-block;
+}
+.pagination a {
+    text-decoration: none;
+    color: black;
+}
+.pactive{
+    border-radius: 20px;
+    background-color: #59B200;
+}

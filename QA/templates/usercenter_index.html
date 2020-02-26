@@ -1,0 +1,47 @@
+{% extends 'usercenter.html' %}
+{% load staticfiles %}
+{% block title %}个人首页{% endblock %}
+{% block css %}
+    <style>
+    .right_title{
+        background-image:url('/static/img/right_title.jpg');background-size:cover;width: 100%;height: 70px;
+    }
+
+    .title_con{
+        padding-top: 20px;color:#fff;width:550px;height:50px;margin-left: 350px;font-size: 120%;
+    }
+
+    .info_tab{
+        margin-left:200px;margin-top:50px;width:600px;height:350px;
+    }
+
+    tr{
+        height: 40px;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/usercenter.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="user-right">
+          <div class="right_title">
+              <div class="title_con">个&nbsp;&nbsp;人&nbsp;&nbsp;资&nbsp;&nbsp;料</div>
+          </div>
+          <table class="info_tab">
+              <tr>
+                  <td style="width: 400px">昵称：{{ user.nickname }}</td>
+                  <td style="width:150px">性别：{{ user.sex }}</td>
+              <tr>
+                  <td style="width:300px">邮箱：{{ user.email }}</td>
+                  <td style="width:300px">专业：{{ user.profession }}</td>
+              </tr>
+              <tr>
+                  <td>个性签名：{{ user.per_signature }}</td>
+              </tr>
+              <tr>
+                  <td>个人介绍：{{ user.per_introduction }}</td>
+              </tr>
+          </table>
+          <a href="/userinfo_reset/"><button style="height:30px;width:70px;border:2px solid #62ab00;border-radius:10px;background-color: #59B200;color:#fff;margin-left: 400px;margin-top: 50px">修改</button></a>
+    </div>
+{% endblock %}

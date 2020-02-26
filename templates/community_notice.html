@@ -1,0 +1,25 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/community_create.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="community_create">
+        <div class="create_header">
+            <a href="/index/">首页</a>
+            <span>></span>
+            <a href="/community_list/">问答社区</a>
+            <span>></span>
+            <a>创建公告</a>
+        </div>
+        <div class="create_form">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{noti.as_p}}
+                <button type="submit">确认提交</button>
+            </form>
+        </div>
+    </div>
+{% endblock content%}

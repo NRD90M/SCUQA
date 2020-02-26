@@ -1,0 +1,66 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/type.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="types">
+        <div class="type_header">
+            <a href="/index/">首页</a>
+            <span>></span>
+            <a href="/type_all/">全部分类</a>
+            <span>></span>
+            <a href="/type1-{{ ftype.ptid }}/">{{ ftype.pyname }}</a>
+            <span>></span>
+            <a href="/type2-{{ stype.tid }}/">{{ stype.tname }}</a>
+        </div>
+        <table class="type_category">
+            <tr><td><h1>{{ stype.tname }}</h1></td></tr>
+        </table>
+        <p></p>
+        <hr style="border: 1px black solid;margin-left: 35px;width: 700px">
+        <div class="type_question">
+            <p></p>
+            {% for question in questions %}
+                <div class="type_question_left">
+                    <div class="question_answers">{{ question.answer_set.count }}<p>回答</p></div>
+                    <div class="question_favorites">{{ question.question_favorite_set.count }}<p>关注</p></div>
+                </div>
+                <div class="type_question_right">
+                    <div class="type_title"><a href="/detail-{{ question.id }}/">{{question.qtitle}}</a></div>
+                    <div class="type_content">{{ question.qcontent }}</div>
+                    <div class="type_button">
+                        <div class="type_name"><a href="/type2-{{ question.stype.tid }}/">{{ question.stype.tname }}</a></div>
+                        <span>{{ question.q_time|date:"Y-m-d H:i" }}</span>
+                    </div>
+                </div>
+                <hr style="border: 1px dashed green">
+            {% empty %}
+                <p>暂无活动</p>
+            {% endfor %}
+        </div>
+            <div class="pagination">
+            <ul>
+                {% if questions.has_previous %}
+                    <li class="previous"><a href="/type2-{{ stype.tid }}/?page={{ questions.previous_page_number }}"><</a></li>
+                {% else %}
+                    <li class="previous disabled"><a href="#"><</a></li>
+                {% endif %}
+                {% for num in paginator.page_range %}
+                    {% if num == currentPage %}
+                        <li class="pactive"><a href="/type2-{{ stype.tid }}/?page={{ num }}">{{ num }}</a></li>
+                    {% else %}
+                        <li><a href="/type2-{{ stype.tid }}/?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if questions.has_next %}
+                    <li class="next"><a href="/type2-{{ stype.tid }}/?page={{ questions.next_page_number }}">></a></li>
+                {% else %}
+                    <li class="next disabled"><a href="#">></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock content%}

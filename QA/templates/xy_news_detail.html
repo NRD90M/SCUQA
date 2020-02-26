@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+{% endblock %}
+{% block content %}
+{% autoescape off %}
+    <style>
+        .xgnews_detail{
+            min-height: 600px;
+        }
+    </style>
+    <div class="xgnews_detail">
+        <p style="text-align: center;">{{ xy_news.Xy_news }}</p>
+        {{ xy_news.Xy_content }}
+   </div>
+{% endautoescape %}
+{% endblock %}

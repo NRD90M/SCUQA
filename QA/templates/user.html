@@ -1,0 +1,75 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}user{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}" >
+{% endblock %}
+{% block left %}
+    <div class="user_left">
+        <div class="user_basis">
+            <div class="user_basis1">
+                <img style="width: 100px;height: 110px;border-radius: 50%" src="/media/{{ user.headshot_img }}/">
+                <div class="user_name">
+                    <a>{{ user.username }}</a>
+                    {% if user.sex == 'male' %}
+                        <img src="/static/img/5.jpg/">
+                    {% else %}
+                        <img src="/static/img/6.jpg/">
+                    {% endif %}
+                <div class="user_favorite">
+                <button onclick="user_fav_change(this,{{ user.username }})">{% if user_fav %}已关注{% else %}关注TA{% endif %}</button>
+            </div>
+                </div>
+            </div>
+            <div class="user_nicname">TA的昵称:{{user.nickname }}</div>
+            <div class="user_email">TA的邮箱：{{ user.email }}</div>
+            <div class="">
+
+            </div>
+            <div class="user_details">
+                <h5>{% if user.per_signature %}{{ user.per_signature }}{% else %}暂无个性签名！{% endif %}</h5>
+            </div>
+        </div>
+        <div class="user_types">
+            <li><a href="/user-{{ user.username }}/user_question/">TA的提问</a></li>
+            <li><a href="/user-{{ user.username }}/user_answer/">TA的回答</a></li>
+            <li><a href="/user-{{ user.username }}/user_favorite/">TA的关注</a></li>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script>
+        function  user_fav_change(obj,user_id){
+            var is_fav = obj.innerHTML == "关注"
+            $.ajax({
+                type:'GET',
+                url:'/user_fav_change/',
+                data:{
+                    'user_id':user_id,
+                    'is_fav':is_fav
+                },
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS'){
+                        alert(data['message'])
+                        if (is_fav){
+                            obj.innerHTML="已关注";
+                        }
+                        else {
+                            obj.innerHTML="关注"
+                        }
+
+                    }
+                    else {
+                        alert(data['message'])
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+    </script>
+{% endblock left %}
+{% block content %}{% endblock content %}

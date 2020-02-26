@@ -1,0 +1,59 @@
+{% extends 'usercenter.html' %}
+{% load staticfiles %}
+{% block title %}我的反馈{% endblock %}
+{% block css %}
+     <link rel="stylesheet" type="text/css" href="{% static 'css/my_feedback.css' %}" >
+     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+     <link rel="stylesheet" type="text/css" href="{% static 'css/usercenter.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="user-right">
+        <div class="title_list">
+            <div style="font-size: 100%;margin:20px 0 0 100px;float: left">反馈记录</div>
+            <div>
+                <button class="top_btn" id="FeedbackSub">现在反馈</button>
+            </div>
+            <p>{{ message }}</p>
+            <div id="form" style="display: none">
+                <form class="feedback_frm" action="/user_feedback/" method="post">
+                    {% csrf_token %}
+                    <p><lable>邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</lable><input  type="text" name="email"></p>
+                    <p><label style="margin-bottom: 100px">反馈意见：</label><textarea type="text" name="feedback"></textarea></p>
+                    <p style="margin-top: 20px;margin-left: 100px">
+                        <button class="fback_btn1">提交</button>
+                        <button class="fback_btn2" id="close">取消</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+        <hr/>
+        <table>
+            <tr class="tr31">
+                <th class="th31">我的反馈</th>
+                <th class="th31" >管理员回复</th>
+                <th class="th31">反馈时间 </th>
+            </tr>
+            {% for feedback in feedback_list %}
+                <tr>
+                    <td class="td31">{{feedback.user_feedback}}</td>
+                    {% if feedback.admin_feedback == ''%}
+                        <td class="td31">未回复</td>
+                    {% else %}
+                        <td class="td31">{{ feedback.admin_feedback }}</td>
+                    {% endif %}
+                    <td class="td31">{{feedback.user_feedback_time|date:"Y-m-d"}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <script type="text/javascript" src="{% static 'js/jquery.js'%}"></script>
+    <script>
+    $("#FeedbackSub").click(function () {
+        $("#form").show();
+    })
+    $("#close").click(function () {
+        $("#form").hide();
+
+    })
+    </script>
+{% endblock %}

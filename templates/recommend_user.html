@@ -1,0 +1,39 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}全部分类{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/type.css' %}" >
+{% endblock %}
+{% block content %}
+    <div class="types">
+        <div class="type_header">
+            <a href="/index/">首页</a>
+            <span>></span>
+            <a href="/hot_question/">问答推荐</a>
+        </div>
+        <table class="type_category">
+            <tr><td><h1>问答推荐</h1></td></tr>
+            <tr>
+               <td><a {%if request.path == '/recommend_hot_question/'%} class="current"{% endif %}href="/recommend_hot_question/">热门问题</a></td>
+                <td><a {%if request.path == '/recommend_hot_answer/'%} class="current"{% endif %}href="/recommend_hot_answer/">热门回答</a> </td>
+                <td><a {%if request.path == '/recommend_hot_answerer/'%} class="current"{% endif %}href="/recommend_hot_answerer/">热门回答者</a> </td>
+            </tr>
+            <tr>
+                <td><a {%if request.path == '/recommend_question/'%} class="current"{% endif %}href="/recommend_question/">你可能感兴趣的问题</a></td>
+                <td><a {%if request.path == '/recommend_user/'%} class="current"{% endif %}href="/recommend_user/">你可能感兴趣的用户</a> </td>
+            </tr>
+        </table>
+        <p></p>
+        <hr style="border: 1px black solid;margin-left: 35px;width: 700px">
+        <div class="recommend_user_list">
+            <p></p>
+            {% for user in user_list %}
+                <div class="recommend_user">
+                    <a href="/user-{{ user.username }}/user_question/"><img src="{{ user.headshot_img.url }}"></a>
+                    <div class="recommend_user_name"><a href="/user-{{ user.username }}/user_question/"> {{ user.username }}</a></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content%}

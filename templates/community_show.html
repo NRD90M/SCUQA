@@ -1,0 +1,15 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+{% block title %}问答社区{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/community_show.css' %}" >
+{% endblock %}
+{% block left %}
+    <div class="community_show">
+        <li><a  href="/community-{{ community.id }}/detail/">社区简介</a></li>
+        <li><a  href="/community-{{ community.id }}/file/">社区文件</a></li>
+        <li><a  href="/community-{{ community.id }}/chat/">社区聊天</a></li>
+    </div>
+{% endblock left %}
+{% block content %}{% endblock content%}

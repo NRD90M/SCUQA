@@ -1,0 +1,221 @@
+{% extends 'usercenter.html' %}
+{% load staticfiles %}
+{% block title %}消息{% endblock %}
+{% block css %}
+    <style>
+    .user-right  button{
+        border-radius: 10px;
+        background-color: #59B200;
+        border: #59B200 2px solid;
+       color:white ;
+    }
+
+    .right_top{background-size:cover;background-image:url('/static/img/right_title.jpg');width: 100%;height: 70px;}
+
+    .right_title{padding-top: 20px;color:#fff;width:550px;height:50px;margin-left: 350px;font-size: 120%;}
+
+    .right_cont{margin-top: 10px}
+
+    .right_cont table{border-bottom:1px forestgreen solid}
+
+    .right_cont tr{height: 35px}
+
+    .tab_td1{width: 780px; white-space: nowrap;text-overflow: ellipsis;overflow:hidden;}
+
+    .tab_td2{width: 50px}
+
+    .tab_td3{width: 80px}
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/usercenter.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="user-right">
+        <div class="right_top">
+            <div class="right_title">我&nbsp;&nbsp;的&nbsp;&nbsp;消&nbsp;&nbsp;息</div>
+        </div>
+        <div class="right_cont">
+            {% if answers %}
+                 {% for answer in answers %}
+                     <table>
+                         <tr>
+                             <td class="tab_td1">系统通知：【{{ answer.aauthor.username }}】回答了你的问题【{{ answer.qid.qtitle }}】</td>
+                             <td class="tab_td2"> <a href="/detail-{{ answer.qid.id }}/"><button>查看</button></a></td>
+                             <td style="width: 80px"> <button onclick="PassAns(this,{{answer.id}})">标为已读</button></td>
+                         </tr>
+                     </table>
+                 {% endfor %}
+            {% endif %}
+            {% if ans_comments%}
+                {% for ans_comment in ans_comments %}
+                     <table>
+                         <tr>
+                             <td class="tab_td1">系统通知：【{{ ans_comment.cauthor.username}}】评论了你的回答【{{ ans_comment.answer.acontent }}】</td>
+                             <td class="tab_td2"><a href="/detail-{{ ans_comment.answer.qid.id }}/"><button>查看</button></a></td>
+                             <td class="tab_td3"><button onclick="PassComment(this,{{ans_comment.id}},{{ ans_comment.AnsComment_deal_status}})">标为已读</button></td>
+                         </tr>
+                     </table>
+                {% endfor %}
+            {% endif %}
+            {% if ans_likes %}
+                {% for ans_like in ans_likes  %}
+                     <table>
+                         <tr>
+                             <td class="tab_td1">系统通知：【{{ ans_like.lauthor.username}}】赞了你的回答【{{ ans_like.answer.acontent}}】</td>
+                             <td class="tab_td2"> <a href="/detail-{{ans_like.answer.qid.id}}"><button>查看</button></a></td>
+                             <td class="tab_td3"> <button onclick="PassAnsLike(this,{{ans_like.id}},{{ ans_like.AnsLike_deal_status}})">标为已读</button></td>
+                        </tr>
+                    </table>
+                {% endfor %}
+            {% endif %}
+            {% if user_follows %}
+                {% for user_follow in user_follows%}
+                    <table>
+                        <tr>
+                             <td class="tab_td1">系统通知：【{{ user_follow.follower.username}}】关注了你</td>
+                             <td class="tab_td2"> <a  href="/my_followers/"><button>查看</button></a></td>
+                             <td class="tab_td3"><button onclick="PassUserFollow(this,{{user_follow.id}})">标为已读</button></td>
+                        </tr>
+                    </table>
+                {% endfor %}
+            {% endif %}
+            {% for apply in applys %}
+                    <table>
+                        <tr>
+                             <td class="tab_td1"><a style="text-decoration: none;color: black" href="/user-{{ apply.ca_author_id }}/user_question/">系统通知：【{{ apply.ca_author_id }}】</a>
+                                    申请加入<a style="text-decoration: none;color: black" href="/community-{{ apply.community.id }}/detail/">【{{ apply.community.c_name }}】</a></td>
+                            <td class="tab_td2"> <button onclick="agree_or_refuse(this,{{ apply.community.id }},{{ apply.ca_author_id }})">同意</button></td>
+                            <td class="tab_td3"><button onclick="agree_or_refuse(this,{{ apply.community.id }},{{ apply.ca_author_id }})">拒绝</button></td>
+                        </tr>
+                     </table>
+            {% endfor %}
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/jquery.js'%}"></script>
+    <script>
+        function PassAns(obj,answer_id){
+            $.ajax({
+                type: 'GET',
+                url: '/message_deal/',
+                data: {
+                    'ans_id':answer_id,
+                },
+                cache: false,
+                 success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS'){
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                    else {
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+        function PassComment(obj,c_id){
+            $.ajax({
+                type: 'GET',
+                url: '/message_deal/',
+                data: {
+                    'ans_comment_id':c_id,
+                },
+                cache: false,
+                 success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS'){
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                    else {
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+        function PassAnsLike(obj,al_id){
+            $.ajax({
+                type: 'GET',
+                url: '/message_deal/',
+                data: {
+                    'ans_like_id':al_id,
+                },
+                cache: false,
+                 success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS'){
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                    else {
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+        function PassUserFollow(obj,user_follow_id){
+            $.ajax({
+                type: 'GET',
+                url: '/message_deal/',
+                data: {
+                    'user_follow_id':user_follow_id,
+                },
+                cache: false,
+                 success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS'){
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                    else {
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+    function agree_or_refuse(obj,community_id,ca_author_id){
+            var agree = obj.innerHTML == "同意"
+            $.ajax({
+                type: 'GET',
+                url: '/apply_agree/',
+                data: {
+                    'community_id': community_id,
+                    'ca_author_id':ca_author_id,
+                    'agree': agree
+                },
+                cache: false,
+                 success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'SUCCESS'){
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                    else {
+                        alert(data['message'])
+                        window.location.reload()
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            });
+        }
+    </script>
+{% endblock %}

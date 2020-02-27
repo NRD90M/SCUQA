@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="035d9705-331d-4e5f-8f6d-e71b9334324e" name="ubuntu@118.24.114.197" url="http://118.24.114.197">
-        <fileTransfer host="118.24.114.197" port="22" rootFolder="/tmp" accessType="SFTP">
+      <webServer id="035d9705-331d-4e5f-8f6d-e71b9334324e" name="SCUQA" url="http://101.37.116.168">
+        <fileTransfer host="101.37.116.168" port="22" rootFolder="/tmp" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
           </advancedOptions>

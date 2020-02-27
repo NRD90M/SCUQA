@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="ubuntu@118.24.114.197">
+  <component name="PublishConfigData" serverName="SCUQA">
     <serverData>
-      <paths name="ubuntu@118.24.114.197">
+      <paths name="SCUQA">
         <serverdata>
           <mappings>
             <mapping deploy="/SCUQA8" local="$PROJECT_DIR$" web="/" />

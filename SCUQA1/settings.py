@@ -25,7 +25,7 @@ SECRET_KEY = '(omj@+zwmjlgulvzptw5cd8a424^rtx_j6lg)cpvj-z^!rw5%t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['118.24.114.197','127.0.0.1']
+ALLOWED_HOSTS = ['101.37.116.168','127.0.0.1']
 
 
 # Application definition
@@ -140,10 +140,10 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.qq.com"  # SMTP服务器主机
 EMAIL_PORT = 25             # 端口
-EMAIL_HOST_USER = "2546783889@qq.com"       # 邮箱地址
-EMAIL_HOST_PASSWORD = "nnpccxnbdvhiecja"    # 密码
+EMAIL_HOST_USER = "**@qq.com"       # 邮箱地址
+EMAIL_HOST_PASSWORD = "**"    # 密码
 EMAIL_USE_TLS= True
-EMAIL_FROM = "2546783889@qq.com"            # 邮箱地址
+EMAIL_FROM = "**@qq.com"            # 邮箱地址
 
 
 MEDIA_URL = '/media/'
